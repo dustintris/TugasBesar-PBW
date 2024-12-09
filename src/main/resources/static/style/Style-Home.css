@@ -1,0 +1,283 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: Arial, sans-serif;
+    height: 3000px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar Style */
+#Logo{
+    height: 15%;
+    width: 15%;
+    padding-left: 40px;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Distribute logo and links evenly */
+    align-items: center;
+    background-color: white;
+    height: 80px;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo h1 {
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    padding-top: 10px;
+}
+
+.nav-links a:hover {
+    color: #f4a261;  /* Hover effect on links */
+}
+
+.nav-links #login{
+    padding: 10px;
+    background-color:#f4a261;
+    color: white;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    border: none;
+}
+
+.nav-links #signup{
+    padding: 10px;
+    background-color: white;
+    transition: 0.3s ease;
+    color: #f4a261;
+    border-radius: 10px;
+    border: none;
+}
+
+.nav-links #login:hover{
+    background-color: #555555;
+    color: #f4a261;
+}
+
+.nav-links #signup:hover{
+    background-color: #555555;
+    color: #f4a261;
+}
+
+/* Body Style */
+.body-1 {
+    background-image: url(../Images/Background.jpg);
+    background-color: #1a1a1a; /* Dark background color */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    color: #f4f4f4; /* Light text color */
+    display: flex;
+    height: 1000px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Ensure the overlay is positioned correctly */
+    padding-bottom: 10px;
+}
+
+.body-1::before {
+    content: ""; /* Ensure the pseudo-element is generated */
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Ensure the overlay is behind the content */
+}
+
+h2, p {
+    z-index: 1; /* Ensure text is above the overlay */
+    text-align: justify;
+}
+
+.body-2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-size: 30px;
+    color: orange;
+    width: 70%;
+    margin: 10px auto;
+}
+
+.body-2:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Typing animation */
+.typing {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #f4f4f4; /* Text color */
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #f4f4f4; /* Cursor effect */
+    animation: typing 2s steps(40) 1s 1 normal both, blink 0.75s step-end infinite; /* Animation for typing and blinking cursor */
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 547px;
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/*Carousel*/
+.carousel {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center; /* Center-align the text */
+    padding-top: 10px;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically */
+    align-items: center;
+}
+
+.carousel-content img {
+    width: 100%; /* Ensure image fits the container */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.carousel-text {
+    margin-top: 10px;
+    font-size: 16px; /* Adjust font size as needed */
+    color: #333; /* Text color */
+}
+
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.carousel-indicator {
+    height: 20px;
+    width: 20px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 50%;
+    margin: 10px 25px;
+    cursor: pointer;
+}
+
+.current-indicator {
+    background-color: #333;
+}
+
+/* Features Section Styles */
+.features-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #ffffff;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #000000;
+}
+
+/* Individual Feature Styles */
+.feature {
+    margin-bottom: 40px;
+}
+
+.icon-container {
+    margin-bottom: 15px;
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.feature-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.feature-description {
+    font-size: 16px;
+    color: #555555;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/*Horizontal Line*/
+.hline {
+    border: 0;
+    height: 2px;
+    background-color: #b8b8b8;
+    margin: 20px auto; /* Center the line horizontally */
+    width: 70%; /* Set width to 50% */
+}
+
+
+/* Footer Style */
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    flex-shrink: 0;
+}
