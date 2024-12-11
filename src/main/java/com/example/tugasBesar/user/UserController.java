@@ -44,7 +44,7 @@ public class UserController {
         if(registered){
             System.out.println("Model attribute set: " + "successMessage, User successfully registered with username:" + user.getUsername());
             model.addAttribute("successMessage", "User successfully registered with username: " + user.getUsername());
-            return "redirect:/results";
+            return "redirect:/login";
         }else{
             System.out.println("Model attribute set: " + "ErrorBrok: Registration Error");
             model.addAttribute("ErrorBrok", "Registration Error");

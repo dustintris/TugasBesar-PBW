@@ -16,8 +16,8 @@ public class JdbcUserRepository implements UserRepository {
 
 
     public void save(User user) throws Exception{
-        String sql = "INSERT INTO users (username, password, name, role) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getName(), user.getRole());
+        String sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword());
     }
 
     public Optional<User> findByUsername(String username) {
@@ -28,12 +28,13 @@ public class JdbcUserRepository implements UserRepository {
 
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
-            resultSet.getString("username"),
-            resultSet.getString("password"),
-            resultSet.getString("password"),
-            resultSet.getString("name"),
-            resultSet.getString("role")
-        );
+        resultSet.getString("email"),
+        resultSet.getString("username"),
+        resultSet.getString("password"),
+        resultSet.getString("password"),
+        resultSet.getString("role")
+    );
+
     }
 
 }
