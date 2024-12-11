@@ -8,6 +8,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class User {
+
+    private int id;
+    
     @NotBlank(message = "Email tidak boleh kosong")
     @Size(max = 50, message = "Panjang Email harus kurang dari 50 karakter")
     private String email;

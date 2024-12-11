@@ -26,13 +26,20 @@ public class JdbcUserRepository implements UserRepository {
         return results.size() == 0 ? Optional.empty() : Optional.of(results.get(0));
     }
 
+    public Optional<User> findById(int id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        List<User> results = jdbcTemplate.query(sql, this::mapRowToUser, id);
+        return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
+    }
+
     private User mapRowToUser(ResultSet resultSet, int rowNum) throws SQLException {
         return new User(
-        resultSet.getString("email"),
-        resultSet.getString("username"),
-        resultSet.getString("password"),
-        resultSet.getString("password"),
-        resultSet.getString("role")
+            resultSet.getInt("id"),
+            resultSet.getString("email"),
+            resultSet.getString("username"),
+            resultSet.getString("password"),
+            resultSet.getString("password"),
+            resultSet.getString("role")
     );
 
     }
