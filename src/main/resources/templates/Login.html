@@ -23,16 +23,10 @@
                     <h2>Login</h2>
                 </div>
                 <div>
-                    <form class="signup-form">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Your Email" required>
-            
-                        <label for="password">Password</label>
-                        <div class="password-field">
-                            <input type="password" id="password" placeholder="Password" required>
-                        </div>
-            
-                        <button type="submit" class="btn-submit">Login</button>
+                    <form action="login" method="post" class="signup-form">
+                        <input type="text" name="username" placeholder="username"/><br>
+                        <input type="password" class="password-field" name="password" placeholder="password" /><br>
+                        <input type="submit" class="btn-submit" value="login">
                         <a th:href="@{/signup}">Create an account?</a>
                     </form>
                 </div>
