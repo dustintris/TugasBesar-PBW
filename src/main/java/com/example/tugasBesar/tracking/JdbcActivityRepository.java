@@ -15,14 +15,13 @@ public class JdbcActivityRepository implements ActivityRepository {
     private JdbcTemplate jdbcTemplate;
 
     public void save(Activity activity) throws Exception {
-        String sql = "INSERT INTO activities (title, description, activity_date, duration, range, picture, created_at) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO activities (title, deskripsi, date, duration, jarak, image) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
             activity.getTitle(),
-            activity.getDescription(),
-            activity.getActivityDate(),
+            activity.getDeskripsi(),
             activity.getDuration(),
-            activity.getRange(),
-            activity.getPicture()
+            activity.getJarak(),
+            activity.getImage()
         );
     }
     
@@ -31,7 +30,7 @@ public class JdbcActivityRepository implements ActivityRepository {
         List<Activity> results = jdbcTemplate.query(sql, this::mapRowToActivity, id);
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
-
+z
     public Optional<Activity> findByUserId(int userId) {
         String sql = "SELECT * FROM activities WHERE user_id = ?";
         List<Activity> results = jdbcTemplate.query(sql, this::mapRowToActivity, userId);
@@ -46,15 +45,16 @@ public class JdbcActivityRepository implements ActivityRepository {
 
     private Activity mapRowToActivity(ResultSet resultSet, int rowNum) throws SQLException {
         return new Activity(
-            resultSet.getLong("id"),
-            resultSet.getLong("user_id"),
+            resultSet.getInt("id"),
+            resultSet.getInt("userid"),
             resultSet.getString("title"),
-            resultSet.getString("description"),
-            resultSet.getDate("activity_date"),
+            resultSet.getString("deskripsi"),
             resultSet.getInt("duration"),
-            resultSet.getFloat("range"),
-            resultSet.getString("picture"),
-            resultSet.getDate("created_at")
+            resultSet.getInt("jarak"),
+            resultSet.getBytes("images"),
+            resultSet.getInt("date"),
+            resultSet.getInt("month"),
+            resultSet.getInt("year")
         );
     }
 

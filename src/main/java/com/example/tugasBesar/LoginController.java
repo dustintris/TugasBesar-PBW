@@ -34,7 +34,13 @@ public class LoginController {
         
         if (user != null) {
             session.setAttribute("username", user.getUsername());
-            return "redirect:/dashboard";  
+            session.setAttribute("id", user.getId());
+            session.setAttribute("role", user.getRole());
+            if(session.getAttribute("role").equals("admin")){
+                return "redirect:/dashboard-admin"; 
+            }else{
+                return "redirect:/dashboard"; 
+            }
         } else {
             // Log an error message to the console
             System.err.println("Invalid username or password: " + username);
@@ -51,9 +57,36 @@ public class LoginController {
         }
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);
+
+        String role = (String) session.getAttribute("role");
+        model.addAttribute("role", role);
+        
+        int id = (int) session.getAttribute("id");
+        model.addAttribute("id", id);
+        
         return "dashboard";  
     }
 
+    @GetMapping("/dashboard-admin")
+    public String dashboardAdminView(HttpSession session, Model model) {
+        String rolee = "user";
+        if (session.getAttribute("id") == null) {
+            return "redirect:/login";  
+        }else if (session.getAttribute("role").equals(rolee)) {
+            return "redirect:/dashboard"; 
+        }else{
+            String username = (String) session.getAttribute("username");
+            model.addAttribute("username", username);
+            
+            String role = (String) session.getAttribute("role");
+            model.addAttribute("role", role);
+            
+            int id = (int) session.getAttribute("id");
+            model.addAttribute("id", id);
+            
+            return "admin";  
+        }
+    }
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {

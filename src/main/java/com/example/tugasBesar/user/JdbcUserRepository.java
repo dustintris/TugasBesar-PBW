@@ -15,10 +15,12 @@ public class JdbcUserRepository implements UserRepository {
     private JdbcTemplate jdbcTemplate;
 
 
-    public void save(User user) throws Exception{
-        String sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword());
+    public void save(User user) throws Exception {
+        String sql = "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)";
+        String role = "admin";
+        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword(), role);
     }
+    
 
     public Optional<User> findByUsername(String username) {
         String sql = "SELECT * FROM users WHERE username = ?";
