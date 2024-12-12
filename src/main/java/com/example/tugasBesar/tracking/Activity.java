@@ -1,6 +1,10 @@
 package com.example.tugasBesar.tracking;
 
+import java.sql.Timestamp;
 import java.util.Date;
+
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OidcLogoutConfigurer;
+import org.springframework.security.web.webauthn.api.Bytes;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -9,27 +13,33 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Activity {
-    private Long id;
+    private int id;
 
     @NotBlank(message = "User ID tidak boleh kosong")
-    private Long userId;
+    private int userId;
 
     @NotBlank(message = "Judul tidak boleh kosong")
     private String title;
 
     @NotBlank(message = "Deskripsi tidak boleh kosong")
-    private String description;
-
-    @NotBlank(message = "Tanggal aktivitas tidak boleh kosong")
-    private Date activityDate;
+    private String deskripsi;
 
     @NotBlank(message = "Durasi tidak boleh kosong")
-    private Integer duration;  // Duration in minutes
+    private int duration;  // Duration in minutes
 
     @NotBlank(message = "Jarak tidak boleh kosong")
-    private Float range;  // Distance in kilometers/miles
+    private int jarak;  // Distance in kilometers/miles
 
-    private String picture;  // Optional, can be null
+    @NotBlank(message = "Jarak tidak boleh kosong")
+    private Bytes image;  // Optional, can be null
 
-    private Date createdAt;
+    private int date;
+
+    private int month;
+
+    private int year;
+
+    Activity(int aInt, int aInt0, String string, String string0, int aInt1, int aInt2, byte[] imageBytes, int aInt3, int aInt4, int aInt5) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
