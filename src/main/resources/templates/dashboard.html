@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="../static/style/Style-Dashboard.css">
     <title>Rebel Run</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
     <div class="navbar">
         <div class="left-navbar">
-            <div class="container" onclick="myFunction(this)">
+            <div class="container" onclick="myFunction(this)" class="close">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
                 <div class="bar3"></div>
-            </div>
-            <div>
-                <img id="logo" src="../static/Images/Logo.png">
             </div>
         </div>
         <div class="nav-links">
@@ -24,68 +22,32 @@
             <a href="logout" id="logout">Log Out</button></a>
         </div>
     </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
     <div class="body-1">
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
-          </div>
+        <div id="date-picker">
+            <div class="toggle-container">
+                <button class="toggle-button" onclick="selectButton(this)">Week</button>
+                <button class="toggle-button" onclick="selectButton(this)">Month</button>
+                <button class="toggle-button active" onclick="selectButton(this)">Year</button>
+                <button class="toggle-button" onclick="selectButton(this)">All</button>
+              </div>
+        </div>
+        <div id="graph-placement">
+            <div class="chart-container" id="chart">
+                <!-- Bars will be added here -->
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
     </div>
 
     <hr class="hline">
     
-    <div class="carousel">
-        <!-- First Carousel -->
-        <div class="carousel-track-container">
-            <ul class="carousel-track" id="carousel-track-1">
-                <li class="carousel-slide current-slide">
-                    <div class="carousel-content">
-                        <img th:src="@{/Images/Logo.png}" alt="Slide 1">
-                    </div>
-                </li>
-                <li class="carousel-slide">
-                    <div class="carousel-content">
-                        <img th:src="@{/Images/Logo.png}" alt="Slide 2">
-                    </div>
-                </li>
-                <li class="carousel-slide">
-                    <div class="carousel-content">
-                        <img th:src="@{/Images/Logo.png}" alt="Slide 3">
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Shared Navigation -->
-        <div class="carousel-nav">
-            <button class="carousel-indicator current-indicator" data-slide="0"></button>
-            <button class="carousel-indicator" data-slide="1"></button>
-            <button class="carousel-indicator" data-slide="2"></button>
-        </div>
     
-        <!-- Second Carousel -->
-        <div class="carousel-track-container">
-            <ul class="carousel-track" id="carousel-track-2">
-                <li class="carousel-slide current-slide">
-                    <div class="carousel-content">
-                        <p class="carousel-text">Slide 1: First slide for second carousel.</p>
-                    </div>
-                </li>
-                <li class="carousel-slide">
-                    <div class="carousel-content">
-                        <p class="carousel-text">Slide 2: Second slide for second carousel.</p>
-                    </div>
-                </li>
-                <li class="carousel-slide">
-                    <div class="carousel-content">
-                        <p class="carousel-text">Slide 3: Third slide for second carousel.</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
     <hr class="hline">
     <div class="features-section">
         <h2 class="section-title">Explore our features.</h2>
@@ -129,8 +91,12 @@
 </body>
 <script>
     function myFunction(x) {
+        if(x.classList.toggle("close")){
+            openNav();
+        }else{
+            closeNav();
+        }
         x.classList.toggle("change");
-        openNav();
     }
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
@@ -139,5 +105,33 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
+
+    function selectButton(button) {
+        const buttons = document.querySelectorAll('.toggle-button');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+    }
+
+    const xValues = ["Monday", "Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+    const yValues = [55, 49, 44, 44, 44, 44, 44, 0, 100];
+    const barColors = ["grey", "grey","grey","grey","grey","grey","grey"];
+
+    new Chart("myChart", {
+    type: "bar",
+    data: {
+        labels: xValues,
+        datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+        }]
+    },
+    options: {
+        legend: {display: false},
+        title: {
+        display: true,
+        text: "World Wine Production 2018"
+        }
+    }
+    });
 </script>
 </html>

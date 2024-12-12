@@ -30,17 +30,17 @@ body, html {
   
   .change .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
-    margin-left: 180px;
+    margin-left: 250px;
   }
   
   .change .bar2 {
     opacity: 0;
-    margin-left: 180px;
+    margin-left: 250px;
 }
   
   .change .bar3 {
     transform: translate(0, -11px) rotate(45deg);
-    margin-left: 180px;
+    margin-left: 250px;
   }
 
 .left-navbar{
@@ -112,32 +112,8 @@ body, html {
     height: 1000px;
     width: 80%;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     padding-bottom: 10px;
-    margin: 50px auto;
-}
-
-h2, p {
-    z-index: 1; /* Ensure text is above the overlay */
-    text-align: justify;
-}
-
-.body-2{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    font-size: 30px;
-    color: orange;
-    width: 70%;
-    margin: 10px auto;
-}
-
-.body-2:hover{
-    cursor: pointer;
-    text-decoration: underline;
+    margin: 80px auto;
 }
 
 /*SideBar*/
@@ -179,92 +155,54 @@ h2, p {
   @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-/* Typing animation */
-.typing {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: bold;
-    color: #f4f4f4; /* Text color */
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid #f4f4f4; /* Cursor effect */
-    animation: typing 2s steps(40) 1s 1 normal both, blink 0.75s step-end infinite; /* Animation for typing and blinking cursor */
-}
+  }
 
-@keyframes typing {
-    from {
-        width: 0;
-    }
-    to {
-        width: 547px;
-    }
-}
-
-@keyframes blink {
-    50% {
-        border-color: transparent;
-    }
-}
-
-/*Carousel*/
-.carousel {
-    position: relative;
-    max-width: 400px;
-    margin: 0 auto;
-    overflow: hidden;
-    text-align: center; /* Center-align the text */
-    padding-top: 10px;
-}
-
-.carousel-track-container {
-    overflow: hidden;
-    position: relative;
-}
-
-.carousel-track {
+/*Time sort Buttons*/
+#date-picker{
+    margin-top: 20px;
+    justify-content: center;
+    width: 100%;
     display: flex;
-    transition: transform 0.3s ease-in-out;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.carousel-slide {
-    min-width: 100%;
-    display: flex;
-    flex-direction: column; /* Stack image and text vertically */
     align-items: center;
 }
 
-.carousel-content img {
-    width: 100%; /* Ensure image fits the container */
-    height: auto; /* Maintain aspect ratio */
-}
-
-.carousel-text {
-    margin-top: 10px;
-    font-size: 16px; /* Adjust font size as needed */
-    color: #333; /* Text color */
-}
-
-.carousel-nav {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.carousel-indicator {
-    height: 20px;
-    width: 20px;
-    background-color: #ccc;
+.toggle-container {
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #e0e0e0; /* Light gray background */
+  }
+  
+  .toggle-button {
+    flex: 1;
+    padding: 10px 20px;
     border: none;
-    border-radius: 50%;
-    margin: 10px 25px;
+    background-color: transparent;
+    color: #555; /* Gray text color */
+    font-size: 30px;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .toggle-button.active {
+    background-color: #f4a261; /* White background for active button */
+    color: black; /* Dark text for active button */
+    font-weight: bold;
+  }
+  
+  .toggle-button:not(.active):hover {
+    background-color: #f4a261; /* Slightly darker gray on hover */
+  }
+  
+/*Chart*/
+#graph-placement{
+    width: 80%;
+    height: 50%;
+    margin: 50px auto;
 }
-
-.current-indicator {
-    background-color: #333;
+#myChart{
+    width: 50%;
+    height: 100%;
+    
 }
 
 /* Features Section Styles */
