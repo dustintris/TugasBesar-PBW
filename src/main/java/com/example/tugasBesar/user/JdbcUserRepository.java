@@ -16,9 +16,8 @@ public class JdbcUserRepository implements UserRepository {
 
 
     public void save(User user) throws Exception {
-        String sql = "INSERT INTO users (email, username, password, role) VALUES (?, ?, ?, ?)";
-        String role = "admin";
-        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword(), role);
+        String sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, user.getEmail(), user.getUsername(), user.getPassword());
     }
     
 
