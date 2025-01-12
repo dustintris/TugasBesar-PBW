@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/style/Style-Dashboard.css}">
+    <link rel="stylesheet" th:href="@{/style/Style-Dashboard-admin.css}">
     <title>Rebel Run</title>
 </head>
 <body>
@@ -22,55 +22,110 @@
     </div>
     <div id="mySidenav" class="sidenav">
         <a href="#">Profile</a>
-        <a href="#">Event</a>
+        <a th:href="@{/eventAdmin}">Event</a>
         <a href="logout">Log Out</a>
     </div>
     <div class="body-1">
         <div class="title-text">
             <a>Hello, admin <span th:text="${username}">Username</span></a>
         </div>
-        <div class="content-1">
-            <div id="date-picker">
-                <div class="toggle-container">
-                    <button class="toggle-button" onclick="selectButton(this)">Week</button>
-                    <button class="toggle-button" onclick="selectButton(this)">Month</button>
-                    <button class="toggle-button active" onclick="selectButton(this)">Year</button>
-                    <button class="toggle-button" onclick="selectButton(this)">All</button>
-                </div>
-            </div>
-            <div id="graph-placement">
-                <div class="chart-container" id="chart">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="body-2">
         <div class="activity-container">
-            <div class="month-title">November 2024</div>
-            <div class="activity-card">
-                <div class="activity-left">
-                    <div class="activity-icon">🏃</div>
-                    <div class="activity-details">
-                        <p class="activity-title">Outdoor running</p>
-                        <p class="activity-distance">5.01 km</p>
+            <div class="event-title">Event Data</div>
+            
+            <!-- Loop through events -->
+            <div th:each="event : ${events}">
+                <div class="activity-card" 
+                     data-title="[[${event.title}]]" 
+                     data-range="[[${event.range}]] km" 
+                     data-date="[[${event.tanggal}]]/[[${event.bulan}]]" 
+                     data-description="[[${event.description}]]" 
+                     data-location="[[${event.location}]]" 
+                     onclick="openModal(this)">
+                    <div class="activity-left">
+                        <div class="activity-icon">🏃</div>
+                        <div class="activity-details">
+                            <p class="activity-title" th:text="${event.title}"></p>
+                            <p class="activity-distance" th:text="${event.range + ' km'}"></p>
+                        </div>
+                    </div>
+                    <div class="activity-right">
+                        <div class="activity-date" th:text="${event.tanggal + '/' + event.bulan}"></div>
+                        <div class="activity-arrow">→</div>
                     </div>
                 </div>
-                <div class="activity-right">
-                    <div class="activity-date">11/17</div>
-                    <div class="activity-arrow">→</div>
-                </div>
             </div>
+            
         </div>
+    </div>
+    
+    <!-- Modal Structure -->
+    <div id="eventModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDistance"></p>
+            <p id="modalDate"></p>
+            <p id="modalDescription"></p>
+            <p id="modalLocation"></p>
+        </div>
+    </div>
 
-        <div>
-            <form action="login" method="post" class="signup-form">
-                <input type="text" name="username" placeholder="username"/><br>
-                <input type="password" class="password-field" name="password" placeholder="password" /><br>
-                <input type="submit" class="btn-submit" value="login">
-                <a th:href="@{/signup}">Create an account?</a>
-            </form>
-        </div>
+    <button class="add-button" onclick="openForm()">+</button>
+
+    <div id="form-overlay" onclick="closeForm()"></div>
+    <div id="activity-form">
+        <h2>Add New Activity</h2>
+        <form method="POST" action="/api/input/eventAdmin" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Judul Lomba</label>
+                <input type="text" id="title" name="title" placeholder="Masukkan judul lomba" required>
+            </div>
+            <div class="form-group">
+                <label for="hari">Hari</label>
+                <input type="number" id="tanggal" name="tanggal" placeholder="Masukkan hari (1-31)" required>
+            </div>
+            <div class="form-group">
+                <label for="bulan">Bulan</label>
+                <input type="number" id="bulan" name="bulan" placeholder="Masukkan bulan (1-12)" required>
+            </div>
+            <div class="form-group">
+                <label for="tahun">Tahun</label>
+                <input type="number" id="tahun" name="tahun" placeholder="Masukkan tahun" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Deskripsi</label>
+                <textarea id="description" name="description" rows="4" placeholder="Deskripsi lomba" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Lokasi</label>
+                <input type="text" id="location" name="location" placeholder="Masukkan lokasi lomba" required>
+            </div>
+            <div class="form-group">
+                <label for="range">Jarak (KM)</label>
+                <input type="number" id="range" name="range" placeholder="Masukkan jarak lomba" required>
+            </div>
+    
+            <!-- Menampilkan error validasi -->
+            <div th:if="${errors != null}">
+                <ul>
+                    <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
+                </ul>
+            </div>
+    
+            <!-- Menampilkan error umum jika ada -->
+            <div th:if="${errorMessage != null}">
+                <p th:text="${errorMessage}"></p>
+            </div>
+    
+            <!-- Menampilkan pesan sukses -->
+            <div th:if="${message != null}">
+                <p th:text="${message}"></p>
+            </div>
+            
+            <button type="submit">Simpan</button>
+        </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -98,30 +153,43 @@
             button.classList.add('active');
         }
 
-        const xValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        const yValues = [55, 49, 44, 44, 44, 44, 44];
-        const barColors = ["grey", "grey", "grey", "grey", "grey", "grey", "grey"];
+        function openForm() {
+            document.getElementById("form-overlay").style.display = "block";
+            document.getElementById("activity-form").style.display = "block";
+        }
 
-        new Chart("myChart", {
-            type: "bar",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    backgroundColor: barColors,
-                    data: yValues
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: { display: false },
-                    title: {
-                        display: true,
-                        text: "Weekly Activity"
-                    }
-                },
-                responsive: true
+        function closeForm() {
+            document.getElementById("form-overlay").style.display = "none";
+            document.getElementById("activity-form").style.display = "none";
+        }
+
+        function openModal(card) {
+            const title = card.getAttribute("data-title");
+            const distance = card.getAttribute("data-range");
+            const date = card.getAttribute("data-date");
+            const description = card.getAttribute("data-description");
+            const location = card.getAttribute("data-location");
+
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalDistance").innerText = "Distance: " + distance;
+            document.getElementById("modalDate").innerText = "Date: " + date;
+            document.getElementById("modalDescription").innerText = "Description: " + description;
+            document.getElementById("modalLocation").innerText = "Location: " + location;
+
+            document.getElementById("eventModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("eventModal").style.display = "none";
+        }
+
+        // Close the modal when the user clicks anywhere outside of the modal
+        window.onclick = function(event) {
+            const modal = document.getElementById("eventModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
             }
-        });
+        }
     </script>
 </body>
 </html>
