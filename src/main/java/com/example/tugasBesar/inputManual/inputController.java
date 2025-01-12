@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -20,7 +21,7 @@ public class inputController {
     @Autowired
     private inputRepository inputRepository;
 
-    private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\Dusti\\Documents\\GitHub\\TugasBesar-PBW\\src\\main\\resources\\static\\Images";
+    private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\Dusti\\Documents\\GitHub\\TugasBesar-PBW\\src\\main\\resources\\static\\Images\\";
 
     // Endpoint untuk menampilkan halaman input manual
     @GetMapping("/manual")
@@ -30,7 +31,7 @@ public class inputController {
 
     // Endpoint untuk menangani submit data input dan upload gambar
     @PostMapping("/api/input/manual")
-    public String submitInput(@Valid @ModelAttribute input input, BindingResult bindingResult, Model model) {
+    public String submitInput(@Valid @ModelAttribute input input, BindingResult bindingResult, Model model, HttpSession session) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "manual";  // Kembali ke halaman input jika ada error
@@ -56,13 +57,16 @@ public class inputController {
                 input.setImagePath(fileName);
             } catch (IOException e) {
                 e.printStackTrace();
-                model.addAttribute("errorMessage", "Terjadi kesalahan saat menyimpan gambar."+ e.getMessage());
+                model.addAttribute("errorMessage", "Terjadi kesalahan saat menyimpan gambar: " + e.getMessage());
                 return "manual";  // Kembali ke halaman input jika ada error saat menyimpan gambar
             }
         }
 
+        // Retrieve user ID from session if needed
+        Integer userId = (Integer) session.getAttribute("id");
+
         // Menyimpan data input beserta path gambar ke database
-        inputRepository.save(input);
+        inputRepository.save(input, session); // Ensure this method signature matches your repository
 
         // Menambahkan pesan sukses ke model dan mengarahkan ke halaman yang sesuai
         model.addAttribute("message", "Data berhasil disimpan!");

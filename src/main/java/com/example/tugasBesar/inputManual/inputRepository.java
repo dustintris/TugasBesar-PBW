@@ -9,6 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.example.tugasBesar.user.User;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
+
 @Repository
 public class inputRepository {
 
@@ -36,9 +41,15 @@ public class inputRepository {
     }
 
     // Menyimpan Input ke database
-    public int save(input input) {
-        String sql = "INSERT INTO input (username, jarak, durasi, tanggal, bulan, tahun, olahraga, judul, deskripsi, imagePath) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public int save(input input, HttpSession session) {
+        Integer id = (Integer)session.getAttribute("id");
+
+        if (id == null) {
+            throw new IllegalArgumentException("User  ID is not found in the session.");
+        }
+        
+        String sql = "INSERT INTO input (username, jarak, durasi, tanggal, bulan, tahun, olahraga, judul, deskripsi, imagePath, userid) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(sql,
             input.getUsername(),
@@ -50,7 +61,8 @@ public class inputRepository {
             input.getOlahraga(),
             input.getJudul(),
             input.getDeskripsi(),
-            input.getImagePath()  // Menyimpan hanya path gambar
+            input.getImagePath(),  // Menyimpan hanya path gambar
+            id
         );
     }
 
