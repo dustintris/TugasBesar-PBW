@@ -30,7 +30,7 @@ public class JdbcActivityRepository implements ActivityRepository {
         List<Activity> results = jdbcTemplate.query(sql, this::mapRowToActivity, id);
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
-z
+    
     public Optional<Activity> findByUserId(int userId) {
         String sql = "SELECT * FROM activities WHERE user_id = ?";
         List<Activity> results = jdbcTemplate.query(sql, this::mapRowToActivity, userId);
