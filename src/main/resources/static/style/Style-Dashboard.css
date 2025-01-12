@@ -7,7 +7,7 @@
 
 body, html {
     font-family: Arial, sans-serif;
-    height: 2000px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     background-color: rgb(199, 199, 199);
@@ -149,8 +149,12 @@ body, html {
 .activity-container {
   width: 80%;
   margin: 0 auto;
-  margin-top: 500px;
+  margin-top: 50px;
   padding-bottom: 50px;
+}
+
+#title{
+  font-size: 50px;
 }
 
 .month-title {
@@ -307,7 +311,7 @@ body, html {
 #graph-placement{
     width: 80%;
     height: 50%;
-    margin: 50px auto;
+    margin: 50px auto 0px auto;
 }
 #myChart{
     width: 50%;
@@ -377,4 +381,101 @@ body, html {
     padding: 10px;
     text-align: center;
     flex-shrink: 0;
+}
+
+.add-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #4a42cc;
+}
+
+#activity-form {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f9f9f9;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+#activity-form h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+#activity-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+#activity-form input[type="text"],
+#activity-form input[type="number"],
+#activity-form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#activity-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#activity-form button[type="submit"] {
+  background-color: #28a745;
+}
+
+#activity-form button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+#activity-form button[type="button"] {
+  background-color: #dc3545;
+}
+
+#activity-form button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+#form-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }

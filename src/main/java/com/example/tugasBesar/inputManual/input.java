@@ -14,9 +14,6 @@ public class input {
 
     private int idinput;
 
-    @NotBlank(message = "Nama tidak boleh kosong")
-    private String username;
-
     @NotNull(message = "Jarak tidak boleh kosong")
     private int jarak;
 
@@ -48,9 +45,8 @@ public class input {
     private MultipartFile foto;
 
     // Konstruktor dengan parameter yang sesuai
-    public input(int idinput, String username, int jarak, int durasi, int tanggal, int bulan, int tahun, String olahraga, String judul, String deskripsi, String imagePath) {
+    public input(int idinput, int jarak, int durasi, int tanggal, int bulan, int tahun, String olahraga, String judul, String deskripsi, String imagePath) {
         this.idinput = idinput;
-        this.username = username;
         this.jarak = jarak;
         this.durasi = durasi;
         this.tanggal = tanggal;
