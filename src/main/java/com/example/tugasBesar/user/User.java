@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class User {
 
-    private int id;
+    private Integer id;
     
     @NotBlank(message = "Email tidak boleh kosong")
     @Size(max = 50, message = "Panjang Email harus kurang dari 50 karakter")
