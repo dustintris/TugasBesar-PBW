@@ -2,5 +2,6 @@
     "java.project.sourcePaths": [
         "src/main/java/com/example/tugasBesar/user",
         "src/main/java/user"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
