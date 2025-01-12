@@ -1,15 +1,18 @@
 package com.example.tugasBesar.inputManual;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 public class inputController {
@@ -17,7 +20,7 @@ public class inputController {
     @Autowired
     private inputRepository inputRepository;
 
-    private static final String IMAGE_UPLOAD_DIR = "C:/Users/LENOVO/Documents/00UAS PBW/TugasBesar-PBW/uploads/images/test/";
+    private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\Dusti\\Documents\\GitHub\\TugasBesar-PBW\\src\\main\\resources\\static\\Images";
 
     // Endpoint untuk menampilkan halaman input manual
     @GetMapping("/manual")
