@@ -18,14 +18,19 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private inputRepository inputRepository;
 
+    private static final String ROLE_ADMIN = "admin";
+    private static final String ROLE_USER = "user";
+
     @GetMapping("/login")
     public String loginView(HttpSession session) {
+        // Redirect to dashboard if user is already logged in
         if (session.getAttribute("username") != null) {
             return "redirect:/dashboard";  
         }
@@ -40,18 +45,20 @@ public class LoginController {
         User user = userService.login(username, password);
         
         if (user != null) {
+            // Set user information in session
             session.setAttribute("username", user.getUsername());
             session.setAttribute("id", user.getId());
             session.setAttribute("role", user.getRole());
-            if(session.getAttribute("role").equals("admin")){
+
+            // Redirect based on user role
+            if (ROLE_ADMIN.equals(user.getRole())) {
                 return "redirect:/dashboard-admin"; 
-            }else{
+            } else {
                 return "redirect:/dashboard"; 
             }
         } else {
             // Log an error message to the console
             System.err.println("Invalid username or password: " + username);
-            
             model.addAttribute("errorMessage", "Invalid username or password");
             return "login";  
         }
@@ -89,24 +96,39 @@ public class LoginController {
         // Add month names to the model
         model.addAttribute("monthNames", getMonthNames());
     
+        // Prepare data for the chart
+        int[] weeklyActivityCounts = new int[7]; // Array to hold counts for each day of the week
+        Arrays.fill(weeklyActivityCounts, 0); // Initialize counts to 0
+    
+        // Count activities for each day of the week
+        for (input activity : activities) {
+            int dayOfWeek = activity.getDayOfWeek(); // Get the day of the week
+            if (dayOfWeek >= 0 && dayOfWeek < 7) {
+                weeklyActivityCounts[dayOfWeek]++; // Increment the count for the corresponding day
+            }
+        }
+    
+        // Add the weekly activity counts to the model
+        model.addAttribute("weeklyActivityCounts", weeklyActivityCounts);
+    
         return "dashboard";  
     }
 
     private String[] getMonthNames() {
         return new String[]{
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+            "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
         };
     }
 
     @GetMapping("/dashboard-admin")
     public String dashboardAdminView(HttpSession session, Model model) {
-        String rolee = "user";
+        // Check if the user is logged in
         if (session.getAttribute("id") == null) {
             return "redirect:/login";  
-        }else if (session.getAttribute("role").equals(rolee)) {
+        } else if (ROLE_USER.equals(session.getAttribute("role"))) {
             return "redirect:/dashboard"; 
-        }else{
+        } else {
+            // Retrieve admin user information from the session
             String username = (String) session.getAttribute("username");
             model.addAttribute("username", username);
             
@@ -122,7 +144,7 @@ public class LoginController {
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); 
+        session.invalidate(); // Invalidate the session
         return "index";  
     }
 }

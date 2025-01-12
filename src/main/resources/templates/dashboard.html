@@ -180,10 +180,15 @@
             document.getElementById("activity-form").style.display = "none";
         }
 
-        const xValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        const yValues = [55, 49, 44, 44, 44, 44, 44];
-        const barColors = ["grey", "grey", "grey", "grey", "grey", "grey", "grey"];
+        const xValues = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        
+        // Get the weekly activity counts from the model
+        const yValues = "${weeklyActivityCounts}";
+        
+        // Define bar colors
+        const barColors = Array(xValues.length).fill("grey"); // You can customize colors if needed
 
+        // Create the chart
         new Chart("myChart", {
             type: "bar",
             data: {
