@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.DayOfWeek;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -56,5 +59,11 @@ public class input {
         this.judul = judul;
         this.deskripsi = deskripsi;
         this.imagePath = imagePath;
+    }
+
+    // Method to get the day of the week (0=Sunday, 1=Monday, ..., 6=Saturday)
+    public int getDayOfWeek() {
+        LocalDate date = LocalDate.of(tahun, bulan, tanggal);
+        return date.getDayOfWeek().getValue() % 7; // Convert to 0=Sunday, 1=Monday, ..., 6=Saturday
     }
 }
