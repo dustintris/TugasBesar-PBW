@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.tugasBesar.TugasBesarApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-01-11T10:43:28" hostname="SAMUELHARATUA" time="1.491">
+<testsuite name="com.example.tugasBesar.TugasBesarApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-01-12T09:45:01" hostname="SAMUELHARATUA" time="1.019">
   <properties/>
-  <testcase name="contextLoads()" classname="com.example.tugasBesar.TugasBesarApplicationTests" time="1.491"/>
-  <system-out><![CDATA[17:43:24.255 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tugasBesar.TugasBesarApplicationTests]: TugasBesarApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-17:43:24.521 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.tugasBesar.TugasBesarApplication for test class com.example.tugasBesar.TugasBesarApplicationTests
+  <testcase name="contextLoads()" classname="com.example.tugasBesar.TugasBesarApplicationTests" time="1.019"/>
+  <system-out><![CDATA[16:44:58.123 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.tugasBesar.TugasBesarApplicationTests]: TugasBesarApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:44:58.327 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.tugasBesar.TugasBesarApplication for test class com.example.tugasBesar.TugasBesarApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -14,11 +14,11 @@
 
  :: Spring Boot ::                (v3.4.0)
 
-2025-01-11T17:43:25.305+07:00  INFO 6964 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : Starting TugasBesarApplicationTests using Java 17.0.13 with PID 6964 (started by LENOVO in C:\Users\LENOVO\Documents\00UAS PBW\TugasBesar-PBW)
-2025-01-11T17:43:25.311+07:00  INFO 6964 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : No active profile set, falling back to 1 default profile: "default"
-2025-01-11T17:43:26.850+07:00 DEBUG 6964 --- [tugasBesar] [    Test worker] com.zaxxer.hikari.HikariConfig           : Driver class org.postgresql.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a
-2025-01-11T17:43:27.347+07:00  INFO 6964 --- [tugasBesar] [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
-2025-01-11T17:43:28.233+07:00  INFO 6964 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : Started TugasBesarApplicationTests in 3.369 seconds (process running for 5.308)
+2025-01-12T16:44:58.943+07:00  INFO 16020 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : Starting TugasBesarApplicationTests using Java 17.0.13 with PID 16020 (started by LENOVO in C:\Users\LENOVO\Documents\00UAS PBW\TugasBesar-PBW)
+2025-01-12T16:44:58.945+07:00  INFO 16020 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : No active profile set, falling back to 1 default profile: "default"
+2025-01-12T16:45:00.530+07:00 DEBUG 16020 --- [tugasBesar] [    Test worker] com.zaxxer.hikari.HikariConfig           : Driver class org.postgresql.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4e0e2f2a
+2025-01-12T16:45:00.919+07:00  INFO 16020 --- [tugasBesar] [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2025-01-12T16:45:01.377+07:00  INFO 16020 --- [tugasBesar] [    Test worker] c.e.t.TugasBesarApplicationTests         : Started TugasBesarApplicationTests in 2.802 seconds (process running for 4.475)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
