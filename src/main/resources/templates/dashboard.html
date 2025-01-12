@@ -21,8 +21,8 @@
         </div>
     </div>
     <div id="mySidenav" class="sidenav">
-        <a href="#">About Us</a>
-        <a href="#">Event</a>
+        <a th:href="@{/about}">About Us</a>
+        <a th:href="@{/eventUser}">Event</a>
         <a href="logout" id="logout">Log out</a>
     </div>
     <div class="body-1">
@@ -124,21 +124,21 @@
             </div>
     
             <!-- Menampilkan error validasi -->
-    <div th:if="${errors != null}">
-        <ul>
-            <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
-        </ul>
-    </div>
-    
-    <!-- Menampilkan error gambar jika ada -->
-    <div th:if="${errorMessage != null}">
-        <p th:text="${errorMessage}"></p>
-    </div>
-    
-    <!-- Menampilkan pesan sukses -->
-    <div th:if="${message != null}">
-        <p th:text="${message}"></p>
-    </div>
+            <div th:if="${errors != null}">
+                <ul>
+                    <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
+                </ul>
+            </div>
+            
+            <!-- Menampilkan error gambar jika ada -->
+            <div th:if="${errorMessage != null}">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            
+            <!-- Menampilkan pesan sukses -->
+            <div th:if="${message != null}">
+                <p th:text="${message}"></p>
+            </div>
             
             <button type="submit">Simpan</button>
         </form>

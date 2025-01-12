@@ -1,6 +1,8 @@
 package com.example.tugasBesar;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.tugasBesar.eventAdmin.event;
+import com.example.tugasBesar.eventAdmin.eventRepository;
 import com.example.tugasBesar.inputManual.input;
 import com.example.tugasBesar.inputManual.inputRepository;
 import com.example.tugasBesar.user.User;
@@ -25,8 +29,16 @@ public class LoginController {
     @Autowired
     private inputRepository inputRepository;
 
+    @Autowired
+    private eventRepository eventRepository;
+
     private static final String ROLE_ADMIN = "admin";
     private static final String ROLE_USER = "user";
+
+    @GetMapping("/about")
+    public String homeView(HttpSession session) {
+        return "index";  
+    }
 
     @GetMapping("/login")
     public String loginView(HttpSession session) {
@@ -79,6 +91,7 @@ public class LoginController {
         model.addAttribute("role", role);
         
         Integer userId = (Integer) session.getAttribute("id");
+        System.out.println("User ID is "+ userId);
         if (userId == null) {
             return "redirect:/login"; // Redirect to login if userId is not found
         }
@@ -123,23 +136,30 @@ public class LoginController {
     @GetMapping("/dashboard-admin")
     public String dashboardAdminView(HttpSession session, Model model) {
         // Check if the user is logged in
-        if (session.getAttribute("id") == null) {
+        Integer userId = (Integer) session.getAttribute("id");
+        String role = (String) session.getAttribute("role");
+    
+        // Redirect to login if user is not logged in
+        if (userId == null) {
             return "redirect:/login";  
-        } else if (ROLE_USER.equals(session.getAttribute("role"))) {
-            return "redirect:/dashboard"; 
-        } else {
-            // Retrieve admin user information from the session
-            String username = (String) session.getAttribute("username");
-            model.addAttribute("username", username);
-            
-            String role = (String) session.getAttribute("role");
-            model.addAttribute("role", role);
-            
-            int id = (int) session.getAttribute("id");
-            model.addAttribute("id", id);
-            
-            return "admin";  
         }
+    
+        // Redirect to user dashboard if the role is not admin
+        if (ROLE_USER.equals(role)) {
+            return "redirect:/dashboard"; 
+        }
+    
+        // At this point, we know the user is logged in and is an admin
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
+        model.addAttribute("role", role);
+        model.addAttribute("id", userId);
+    
+        // Retrieve events for the admin dashboard
+        List<event> events = eventRepository.findAll(); // Fetch events
+        model.addAttribute("events", events); // Add events to the model
+        System.out.println("Model data: " + model.asMap());
+        return "admin";  // Return the admin view
     }
     
     @GetMapping("/logout")

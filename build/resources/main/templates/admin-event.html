@@ -21,8 +21,7 @@
         </div>
     </div>
     <div id="mySidenav" class="sidenav">
-        <a href="#">Profile</a>
-        <a th:href="@{/eventAdmin}">Event</a>
+        <a th:href="@{/dashboard-admin}">Home</a>
         <a href="logout">Log Out</a>
     </div>
     <div class="body-1">
@@ -34,41 +33,28 @@
         <div class="activity-container">
             <div class="event-title">Event Data</div>
             
-            <!-- Loop through events -->
-            <div th:each="event : ${events}">
-                <div class="activity-card" 
-                     data-title="[[${event.title}]]" 
-                     data-range="[[${event.range}]] km" 
-                     data-date="[[${event.tanggal}]]/[[${event.bulan}]]" 
-                     data-description="[[${event.description}]]" 
-                     data-location="[[${event.location}]]" 
-                     onclick="openModal(this)">
-                    <div class="activity-left">
-                        <div class="activity-icon">🏃</div>
-                        <div class="activity-details">
-                            <p class="activity-title" th:text="${event.title}"></p>
-                            <p class="activity-distance" th:text="${event.range + ' km'}"></p>
-                        </div>
-                    </div>
-                    <div class="activity-right">
-                        <div class="activity-date" th:text="${event.tanggal + '/' + event.bulan}"></div>
-                        <div class="activity-arrow">→</div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-    
-    <!-- Modal Structure -->
-    <div id="eventModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle"></h2>
-            <p id="modalDistance"></p>
-            <p id="modalDate"></p>
-            <p id="modalDescription"></p>
-            <p id="modalLocation"></p>
+            <!-- Event Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Distance</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through events -->
+                    <tr th:each="event : ${events}">
+                        <td th:text="${event.title}"></td>
+                        <td th:text="${event.range + ' km'}"></td>
+                        <td th:text="${event.tanggal + '/' + event.bulan}"></td>
+                        <td th:text="${event.description}"></td>
+                        <td th:text="${event.location}"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -105,13 +91,6 @@
             <div class="form-group">
                 <label for="range">Jarak (KM)</label>
                 <input type="number" id="range" name="range" placeholder="Masukkan jarak lomba" required>
-            </div>
-    
-            <!-- Menampilkan error validasi -->
-            <div th:if="${errors != null}">
-                <ul>
-                    <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
-                </ul>
             </div>
     
             <!-- Menampilkan error umum jika ada -->
@@ -161,34 +140,6 @@
         function closeForm() {
             document.getElementById("form-overlay").style.display = "none";
             document.getElementById("activity-form").style.display = "none";
-        }
-
-        function openModal(card) {
-            const title = card.getAttribute("data-title");
-            const distance = card.getAttribute("data-range");
-            const date = card.getAttribute("data-date");
-            const description = card.getAttribute("data-description");
-            const location = card.getAttribute("data-location");
-
-            document.getElementById("modalTitle").innerText = title;
-            document.getElementById("modalDistance").innerText = "Distance: " + distance;
-            document.getElementById("modalDate").innerText = "Date: " + date;
-            document.getElementById("modalDescription").innerText = "Description: " + description;
-            document.getElementById("modalLocation").innerText = "Location: " + location;
-
-            document.getElementById("eventModal").style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById("eventModal").style.display = "none";
-        }
-
-        // Close the modal when the user clicks anywhere outside of the modal
-        window.onclick = function(event) {
-            const modal = document.getElementById("eventModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
         }
     </script>
 </body>
