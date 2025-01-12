@@ -8,7 +8,7 @@ public interface ActivityRepository {
     void save(Activity activity) throws Exception;
     Optional<Activity> findById(int id);
     Optional<Activity> findByUserId(int userId);
-    List<Activity> findAll();  // New method to fetch all activities
+    //List<Activity> findAll();  // New method to fetch all activities
     public void deleteById(Long id) throws Exception;
 }
 

@@ -4,106 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/style/Style-Dashboard.css}">
+    <link rel="stylesheet" href="style/Style-Dashboard.css">
     <title>Rebel Run</title>
-    <style>
-        .add-button {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: #6c63ff;
-            color: white;
-            border: none;
-            font-size: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .add-button:hover {
-            background-color: #4a42cc;
-        }
-
-        #activity-form {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #f9f9f9;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            z-index: 1000;
-        }
-
-        #activity-form h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        #activity-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        #activity-form input[type="text"],
-        #activity-form input[type="number"],
-        #activity-form input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        #activity-form button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            margin-right: 10px;
-            transition: background-color 0.3s ease;
-        }
-
-        #activity-form button[type="submit"] {
-            background-color: #28a745;
-        }
-
-        #activity-form button[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-        #activity-form button[type="button"] {
-            background-color: #dc3545;
-        }
-
-        #activity-form button[type="button"]:hover {
-            background-color: #c82333;
-        }
-
-        #form-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-    </style>
 </head>
 <body>
     <div class="navbar">
@@ -116,12 +18,15 @@
         </div>
         <div class="nav-links">
             <a>Hello, <span th:text="${username}">Username</span>!</a>
+            <a href="logout" id="logout">Log Out</a>
         </div>
     </div>
     <div id="mySidenav" class="sidenav">
-        <a href="#">About Us</a>
-        <a href="#">Event</a>
-        <a href="logout" id="logout">Log out</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="/kegiatan">Kegiatan</a>
+        <a href="/manual">Manual Entry</a>
+
     </div>
     <div class="body-1">
         <div class="title-text">
@@ -161,33 +66,6 @@
             </div>
         </div>
     </div>
-
-    <button class="add-button" onclick="openForm()">+</button>
-
-    <div id="form-overlay" onclick="closeForm()"></div>
-    <div id="activity-form">
-        <h2>Add New Activity</h2>
-        <form method="post" action="/activities/add" enctype="multipart/form-data">
-        <label for="title">Activity Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-
-        <label for="description">Description:</label>
-        <input type="text" id="description" name="description" required><br><br>
-
-        <label for="distance">Distance (km):</label>
-        <input type="number" id="distance" name="jarak" required><br><br>
-
-        <label for="duration">Duration (minutes):</label>
-        <input type="number" id="duration" name="duration" required><br><br>
-
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br><br>
-
-        <button type="submit">Save</button>
-        <button type="button" onclick="closeForm()">Cancel</button>
-    </form>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -212,16 +90,6 @@
             const buttons = document.querySelectorAll('.toggle-button');
             buttons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-        }
-
-        function openForm() {
-            document.getElementById("form-overlay").style.display = "block";
-            document.getElementById("activity-form").style.display = "block";
-        }
-
-        function closeForm() {
-            document.getElementById("form-overlay").style.display = "none";
-            document.getElementById("activity-form").style.display = "none";
         }
 
         const xValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];

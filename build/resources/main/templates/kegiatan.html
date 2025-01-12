@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Kegiatan</title>
+</head>
+<body>
+    <h1>Data Kegiatan</h1>
+
+    <!-- Form untuk filter berdasarkan username -->
+    <form action="/kegiatan" method="get">
+        <label for="username">Filter by Username:</label>
+        <input type="text" id="username" name="username" placeholder="Masukkan Username">
+        <button type="submit">Filter</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Jarak</th>
+                <th>Durasi</th>
+                <th>Tanggal</th>
+                <th>Bulan</th>
+                <th>Tahun</th>
+                <th>Olahraga</th>
+                <th>Judul</th>
+                <th>Deskripsi</th>
+                <th>Gambar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterasi data dari model -->
+            <tr th:each="data : ${inputData}">
+                <td th:text="${data.username}"></td>
+                <td th:text="${data.jarak}"></td>
+                <td th:text="${data.durasi}"></td>
+                <td th:text="${data.tanggal}"></td>
+                <td th:text="${data.bulan}"></td>
+                <td th:text="${data.tahun}"></td>
+                <td th:text="${data.olahraga}"></td>
+                <td th:text="${data.judul}"></td>
+                <td th:text="${data.deskripsi}"></td>
+                <td>
+                    <img th:src="@{'/uploads/images/test/' + ${data.imagepath}}" alt="Gambar" style="width: 100px; height: auto;">
+
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</body>
+</html>
