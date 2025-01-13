@@ -19,11 +19,21 @@ public class eventController {
     @Autowired
     private eventRepository eventRepository;
 
+    private static final String ROLE_USER = "user";
+
     // Endpoint untuk menampilkan halaman input manual
     @GetMapping("/eventAdmin")
     public String showManualPage(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("id");
         String role = (String) session.getAttribute("role");
+        if (userId == null) {
+            return "redirect:/login";  
+        } 
+    
+        // Redirect to user dashboard if the role is not admin
+        if (ROLE_USER.equals(role)) {
+            return "redirect:/dashboard"; 
+        }
         List<event> events = eventRepository.findAll(); 
         model.addAttribute("events", events);
         System.out.println("Model data: " + model.asMap());
@@ -32,7 +42,12 @@ public class eventController {
 
     @GetMapping("/eventUser")
     public String showManualPageUser(HttpSession session, Model model) {
+        if (session.getAttribute("username") == null) {
+            return "redirect:/login";  
+        }
         Integer userId = (Integer) session.getAttribute("id");
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
         String role = (String) session.getAttribute("role");
         List<event> events = eventRepository.findAll(); 
         model.addAttribute("events", events);
@@ -45,7 +60,7 @@ public class eventController {
     public String submitInput(@Valid @ModelAttribute event event, BindingResult bindingResult, Model model, HttpSession session) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:admin";  // Kembali ke halaman input jika ada error
+            return "redirect:/eventAdmin";  // Kembali ke halaman input jika ada error
         }
 
         
@@ -56,6 +71,6 @@ public class eventController {
 
         // Menambahkan pesan sukses ke model dan mengarahkan ke halaman yang sesuai
         model.addAttribute("message", "Data berhasil disimpan!");
-        return "redirect:admin";  // Bisa diarahkan ke halaman sukses setelah data berhasil disimpan
+        return "redirect:/eventAdmin";  // Bisa diarahkan ke halaman sukses setelah data berhasil disimpan
     }
 }

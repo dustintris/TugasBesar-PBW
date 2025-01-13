@@ -1,7 +1,7 @@
 package com.example.tugasBesar.inputManual;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class inputController {
     @Autowired
     private inputRepository inputRepository;
 
-    private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\Dusti\\Documents\\GitHub\\TugasBesar-PBW\\src\\main\\resources\\static\\uploads";
+    private static final String IMAGE_UPLOAD_DIR = "C:\\Users\\Dusti\\Documents\\GitHub\\TugasBesar-PBW\\src\\main\\resources\\static\\Images\\";
 
     // Endpoint untuk menampilkan halaman input manual
     @GetMapping("/activity/{id}")
